@@ -1,0 +1,20 @@
+name: CI-Infinity-Basic 
+on:
+  push:
+    branches: [ main, master, develop, dev, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, dev, stage, release ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Trigger SAST Scan
+        run: |
+          curl -X POST https://softdebut.appsecure.website/api/v1/cicd/scan/sast/newscan \
+          -H 'Content-Type: application/json' \
+          -H 'X-Api-Key: oxs_lvvoEl91PzuUfzLS_ZrEbTDppy9lLAKX9F7OngwCLi0' \
+          -d '{ "assetID": "68088fafe29c43c7f77353c5" }'
